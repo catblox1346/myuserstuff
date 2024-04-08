@@ -494,217 +494,246 @@ end)
 
 
 
+local frame = game:GetService("Players").LocalPlayer.PlayerGui:WaitForChild("ScorpMini"):WaitForChild("ScorpTest")WaitForChild("Frame1") -- Adjust the frame name accordingly
 
+-- Set the frame initially invisible and in the minimized state
+frame.Position = UDim2.new(0, 0, 1, 0)
+frame.Size = UDim2.new(0, 0, 0, 0)
+frame.Visible = false
 
+-- Create a BindableEvent to listen for changes in the Noclip setting
+local noclipChanged = Instance.new("BindableEvent")
 
-local frame = game:GetService("Players").LocalPlayer.PlayerGui:WaitForChild("ScorpMini"):WaitForChild("ScorpTest"):WaitForChild("Numbers"):WaitForChild("Frame1") -- Adjust the frame name accordingly
-
-local originalColor = Color3.fromRGB(255, 0, 0) -- Red
-local targetColor = Color3.fromRGB(0, 255, 0) -- Green
-
-local tweenInfo = TweenInfo.new(
-    0.2, -- Duration in seconds
-    Enum.EasingStyle.Linear, -- Easing style (linear for a smooth transition)
-    Enum.EasingDirection.Out -- Easing direction (out for a smooth start)
-)
-
-local function changeColor()
-    local currentColor = frame.BackgroundColor3
-    local newColor = (currentColor == originalColor) and targetColor or originalColor
-
-    local tween = game:GetService("TweenService"):Create(frame, tweenInfo, {
-        BackgroundColor3 = newColor
-    })
-
-    tween:Play()
-    tween.Completed:Connect(function()
-        print("Color transition complete.")
-    end)
-end
-
-local settings = var.settings
-
-local function onSettingsChange()
-    if settings.NoClip then
-        changeColor()
+-- Function to toggle the frame's visibility and size
+local function toggleFrame()
+    if var.Noclip:Get() then
+        frame.Visible = true
+        frame:TweenSizeAndPosition(
+            UDim2.new(0, 235, 0, 371), -- Final size
+            UDim2.new(0, 0, 0.5, 0), -- Final position (adjust Y coordinate as needed)
+            Enum.EasingDirection.Out,
+            Enum.EasingStyle.Sine,
+            1, -- Duration
+            true
+        )
+    else
+        frame:TweenSizeAndPosition(
+            UDim2.new(0, 0, 0, 0), -- Final size
+            UDim2.new(0, 0, 1, 0), -- Final position
+            Enum.EasingDirection.Out,
+            Enum.EasingStyle.Sine,
+            1, -- Duration
+            true
+        )
+        frame.Visible = false
     end
 end
 
-game:GetService("RunService").Stepped:Connect(onSettingsChange)
-local frame = game:GetService("Players").LocalPlayer.PlayerGui:WaitForChild("ScorpMini"):WaitForChild("ScorpTest"):WaitForChild("Numbers"):WaitForChild("Frame2") -- Adjust the frame name accordingly
+-- Automatically toggle the frame based on the initial Noclip setting
+toggleFrame()
 
-local originalColor = Color3.fromRGB(255, 0, 0) -- Red
-local targetColor = Color3.fromRGB(0, 255, 0) -- Green
+-- Listen for changes in the Noclip setting
+var.Noclip.Changed:Connect(toggleFrame)
+local frame = game:GetService("Players").LocalPlayer.PlayerGui:WaitForChild("ScorpMini"):WaitForChild("ScorpTest"):WaitForChild("Frame2") -- Adjust the frame name accordingly
 
-local tweenInfo = TweenInfo.new(
-    0.2, -- Duration in seconds
-    Enum.EasingStyle.Linear, -- Easing style (linear for a smooth transition)
-    Enum.EasingDirection.Out -- Easing direction (out for a smooth start)
-)
+-- Set the frame initially invisible and in the minimized state
+frame.Position = UDim2.new(0, 0, 1, 0)
+frame.Size = UDim2.new(0, 0, 0, 0)
+frame.Visible = false
 
-local function changeColor()
-    local currentColor = frame.BackgroundColor3
-    local newColor = (currentColor == originalColor) and targetColor or originalColor
+-- Create a BindableEvent to listen for changes in the HardDragger setting
+local hardDraggerChanged = Instance.new("BindableEvent")
 
-    local tween = game:GetService("TweenService"):Create(frame, tweenInfo, {
-        BackgroundColor3 = newColor
-    })
-
-    tween:Play()
-    tween.Completed:Connect(function()
-        print("Color transition complete.")
-    end)
-end
-
-local settings = var.settings
-
-local function onSettingsChange()
-    if settings.HardDragger then
-        changeColor()
+-- Function to toggle the frame's visibility and size
+local function toggleFrame()
+    if var.HardDragger:Get() then
+        frame.Visible = true
+        frame:TweenSizeAndPosition(
+            UDim2.new(0, 235, 0, 371), -- Final size
+            UDim2.new(0, 0, 0.5, 0), -- Final position (adjust Y coordinate as needed)
+            Enum.EasingDirection.Out,
+            Enum.EasingStyle.Sine,
+            1, -- Duration
+            true
+        )
+    else
+        frame:TweenSizeAndPosition(
+            UDim2.new(0, 0, 0, 0), -- Final size
+            UDim2.new(0, 0, 1, 0), -- Final position
+            Enum.EasingDirection.Out,
+            Enum.EasingStyle.Sine,
+            1, -- Duration
+            true
+        )
+        frame.Visible = false
     end
 end
 
-game:GetService("RunService").Stepped:Connect(onSettingsChange)
-local frame = game:GetService("Players").LocalPlayer.PlayerGui:WaitForChild("ScorpMini"):WaitForChild("ScorpTest"):WaitForChild("Numbers"):WaitForChild("Frame3") -- Adjust the frame name accordingly
+-- Automatically toggle the frame based on the initial HardDragger setting
+toggleFrame()
 
-local originalColor = Color3.fromRGB(255, 0, 0) -- Red
-local targetColor = Color3.fromRGB(0, 255, 0) -- Green
+-- Listen for changes in the HardDragger setting
+var.HardDragger.Changed:Connect(toggleFrame)
+local frame = game:GetService("Players").LocalPlayer.PlayerGui:WaitForChild("ScorpMini"):WaitForChild("ScorpTest"):WaitForChild("Frame3") -- Adjust the frame name accordingly
 
-local tweenInfo = TweenInfo.new(
-    0.2, -- Duration in seconds
-    Enum.EasingStyle.Linear, -- Easing style (linear for a smooth transition)
-    Enum.EasingDirection.Out -- Easing direction (out for a smooth start)
-)
+-- Set the frame initially invisible and in the minimized state
+frame.Position = UDim2.new(0, 0, 1, 0)
+frame.Size = UDim2.new(0, 0, 0, 0)
+frame.Visible = false
 
-local function changeColor()
-    local currentColor = frame.BackgroundColor3
-    local newColor = (currentColor == originalColor) and targetColor or originalColor
+-- Create a BindableEvent to listen for changes in the GodMode setting
+local godModeChanged = Instance.new("BindableEvent")
 
-    local tween = game:GetService("TweenService"):Create(frame, tweenInfo, {
-        BackgroundColor3 = newColor
-    })
-
-    tween:Play()
-    tween.Completed:Connect(function()
-        print("Color transition complete.")
-    end)
-end
-
-local settings = var.settings
-
-local function onSettingsChange()
-    if settings.GodMode then
-        changeColor()
+-- Function to toggle the frame's visibility and size
+local function toggleFrame()
+    if var.GodMode:Get() then
+        frame.Visible = true
+        frame:TweenSizeAndPosition(
+            UDim2.new(0, 235, 0, 371), -- Final size
+            UDim2.new(0, 0, 0.5, 0), -- Final position (adjust Y coordinate as needed)
+            Enum.EasingDirection.Out,
+            Enum.EasingStyle.Sine,
+            1, -- Duration
+            true
+        )
+    else
+        frame:TweenSizeAndPosition(
+            UDim2.new(0, 0, 0, 0), -- Final size
+            UDim2.new(0, 0, 1, 0), -- Final position
+            Enum.EasingDirection.Out,
+            Enum.EasingStyle.Sine,
+            1, -- Duration
+            true
+        )
+        frame.Visible = false
     end
 end
 
-game:GetService("RunService").Stepped:Connect(onSettingsChange)
-local frame = game:GetService("Players").LocalPlayer.PlayerGui:WaitForChild("ScorpMini"):WaitForChild("ScorpTest"):WaitForChild("Numbers"):WaitForChild("Frame4") -- Adjust the frame name accordingly
+-- Automatically toggle the frame based on the initial GodMode setting
+toggleFrame()
 
-local originalColor = Color3.fromRGB(255, 0, 0) -- Red
-local targetColor = Color3.fromRGB(0, 255, 0) -- Green
+-- Listen for changes in the GodMode setting
+var.GodMode.Changed:Connect(toggleFrame)
+local frame = game:GetService("Players").LocalPlayer.PlayerGui:WaitForChild("ScorpMini"):WaitForChild("ScorpTest"):WaitForChild("Frame4") -- Adjust the frame name accordingly
 
-local tweenInfo = TweenInfo.new(
-    0.2, -- Duration in seconds
-    Enum.EasingStyle.Linear, -- Easing style (linear for a smooth transition)
-    Enum.EasingDirection.Out -- Easing direction (out for a smooth start)
-)
+-- Set the frame initially invisible and in the minimized state
+frame.Position = UDim2.new(0, 0, 1, 0)
+frame.Size = UDim2.new(0, 0, 0, 0)
+frame.Visible = false
 
-local function changeColor()
-    local currentColor = frame.BackgroundColor3
-    local newColor = (currentColor == originalColor) and targetColor or originalColor
+-- Create a BindableEvent to listen for changes in the AntiVoid setting
+local antiVoidChanged = Instance.new("BindableEvent")
 
-    local tween = game:GetService("TweenService"):Create(frame, tweenInfo, {
-        BackgroundColor3 = newColor
-    })
-
-    tween:Play()
-    tween.Completed:Connect(function()
-        print("Color transition complete.")
-    end)
-end
-
-local settings = var.settings
-
-local function onSettingsChange()
-    if settings.AntiVoid then
-        changeColor()
+-- Function to toggle the frame's visibility and size
+local function toggleFrame()
+    if var.AntiVoid:Get() then
+        frame.Visible = true
+        frame:TweenSizeAndPosition(
+            UDim2.new(0, 235, 0, 371), -- Final size
+            UDim2.new(0, 0, 0.5, 0), -- Final position (adjust Y coordinate as needed)
+            Enum.EasingDirection.Out,
+            Enum.EasingStyle.Sine,
+            1, -- Duration
+            true
+        )
+    else
+        frame:TweenSizeAndPosition(
+            UDim2.new(0, 0, 0, 0), -- Final size
+            UDim2.new(0, 0, 1, 0), -- Final position
+            Enum.EasingDirection.Out,
+            Enum.EasingStyle.Sine,
+            1, -- Duration
+            true
+        )
+        frame.Visible = false
     end
 end
 
-game:GetService("RunService").Stepped:Connect(onSettingsChange)
-local frame = game:GetService("Players").LocalPlayer.PlayerGui:WaitForChild("ScorpMini"):WaitForChild("ScorpTest"):WaitForChild("Numbers"):WaitForChild("Frame5") -- Adjust the frame name accordingly
+-- Automatically toggle the frame based on the initial AntiVoid setting
+toggleFrame()
 
-local originalColor = Color3.fromRGB(255, 0, 0) -- Red
-local targetColor = Color3.fromRGB(0, 255, 0) -- Green
+-- Listen for changes in the AntiVoid setting
+var.AntiVoid.Changed:Connect(toggleFrame)
+local frame = game:GetService("Players").LocalPlayer.PlayerGui:WaitForChild("ScorpMini"):WaitForChild("ScorpTest"):WaitForChild("Frame5") -- Adjust the frame name accordingly
 
-local tweenInfo = TweenInfo.new(
-    0.2, -- Duration in seconds
-    Enum.EasingStyle.Linear, -- Easing style (linear for a smooth transition)
-    Enum.EasingDirection.Out -- Easing direction (out for a smooth start)
-)
+-- Set the frame initially invisible and in the minimized state
+frame.Position = UDim2.new(0, 0, 1, 0)
+frame.Size = UDim2.new(0, 0, 0, 0)
+frame.Visible = false
 
-local function changeColor()
-    local currentColor = frame.BackgroundColor3
-    local newColor = (currentColor == originalColor) and targetColor or originalColor
+-- Create a BindableEvent to listen for changes in the Flashlight setting
+local flashlightChanged = Instance.new("BindableEvent")
 
-    local tween = game:GetService("TweenService"):Create(frame, tweenInfo, {
-        BackgroundColor3 = newColor
-    })
-
-    tween:Play()
-    tween.Completed:Connect(function()
-        print("Color transition complete.")
-    end)
-end
-
-local settings = var.settings
-
-local function onSettingsChange()
-    if settings.Flashlight then
-        changeColor()
+-- Function to toggle the frame's visibility and size
+local function toggleFrame()
+    if var.Flashlight:Get() then
+        frame.Visible = true
+        frame:TweenSizeAndPosition(
+            UDim2.new(0, 235, 0, 371), -- Final size
+            UDim2.new(0, 0, 0.5, 0), -- Final position (adjust Y coordinate as needed)
+            Enum.EasingDirection.Out,
+            Enum.EasingStyle.Sine,
+            1, -- Duration
+            true
+        )
+    else
+        frame:TweenSizeAndPosition(
+            UDim2.new(0, 0, 0, 0), -- Final size
+            UDim2.new(0, 0, 1, 0), -- Final position
+            Enum.EasingDirection.Out,
+            Enum.EasingStyle.Sine,
+            1, -- Duration
+            true
+        )
+        frame.Visible = false
     end
 end
 
-game:GetService("RunService").Stepped:Connect(onSettingsChange)
-local frame = game:GetService("Players").LocalPlayer.PlayerGui:WaitForChild("ScorpMini"):WaitForChild("ScorpTest"):WaitForChild("Numbers"):WaitForChild("Frame6") -- Adjust the frame name accordingly
+-- Automatically toggle the frame based on the initial Flashlight setting
+toggleFrame()
 
-local originalColor = Color3.fromRGB(255, 0, 0) -- Red
-local targetColor = Color3.fromRGB(0, 255, 0) -- Green
+-- Listen for changes in the Flashlight setting
+var.Flashlight.Changed:Connect(toggleFrame)
+local frame = game:GetService("Players").LocalPlayer.PlayerGui:WaitForChild("ScorpMini"):WaitForChild("ScorpTest"):WaitForChild("Frame6") -- Adjust the frame name accordingly
 
-local tweenInfo = TweenInfo.new(
-    0.2, -- Duration in seconds
-    Enum.EasingStyle.Linear, -- Easing style (linear for a smooth transition)
-    Enum.EasingDirection.Out -- Easing direction (out for a smooth start)
-)
+-- Set the frame initially invisible and in the minimized state
+frame.Position = UDim2.new(0, 0, 1, 0)
+frame.Size = UDim2.new(0, 0, 0, 0)
+frame.Visible = false
 
-local function changeColor()
-    local currentColor = frame.BackgroundColor3
-    local newColor = (currentColor == originalColor) and targetColor or originalColor
+-- Create a BindableEvent to listen for changes in the AutoAxePickup setting
+local autoAxePickupChanged = Instance.new("BindableEvent")
 
-    local tween = game:GetService("TweenService"):Create(frame, tweenInfo, {
-        BackgroundColor3 = newColor
-    })
-
-    tween:Play()
-    tween.Completed:Connect(function()
-        print("Color transition complete.")
-    end)
-end
-
-local settings = var.settings
-
-local function onSettingsChange()
-    if settings.AutoAxePickup then
-        changeColor()
+-- Function to toggle the frame's visibility and size
+local function toggleFrame()
+    if var.AutoAxePickup:Get() then
+        frame.Visible = true
+        frame:TweenSizeAndPosition(
+            UDim2.new(0, 235, 0, 371), -- Final size
+            UDim2.new(0, 0, 0.5, 0), -- Final position (adjust Y coordinate as needed)
+            Enum.EasingDirection.Out,
+            Enum.EasingStyle.Sine,
+            1, -- Duration
+            true
+        )
+    else
+        frame:TweenSizeAndPosition(
+            UDim2.new(0, 0, 0, 0), -- Final size
+            UDim2.new(0, 0, 1, 0), -- Final position
+            Enum.EasingDirection.Out,
+            Enum.EasingStyle.Sine,
+            1, -- Duration
+            true
+        )
+        frame.Visible = false
     end
 end
 
-game:GetService("RunService").Stepped:Connect(onSettingsChange)
+-- Automatically toggle the frame based on the initial AutoAxePickup setting
+toggleFrame()
 
-
-
-
+-- Listen for changes in the AutoAxePickup setting
+var.AutoAxePickup.Changed:Connect(toggleFrame)
 
 
 
