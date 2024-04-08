@@ -408,7 +408,325 @@ UICorner_23.Parent = TextLabel_11
 UIGradient_17.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fromRGB(255, 255, 255)), ColorSequenceKeypoint.new(0.52, Color3.fromRGB(177, 177, 177)), ColorSequenceKeypoint.new(1.00, Color3.fromRGB(140, 140, 140))}
 UIGradient_17.Parent = TextLabel_11
 
--- Scripts:
+
+
+
+
+
+
+spawn(function()
+    -- Walkspeed.LocalScript
+    local player = game.Players.LocalPlayer
+    local humanoid = player.Character and player.Character:WaitForChild("Humanoid")
+    local textLabel1 = Walkspeed -- Assuming Walkspeed is a valid object
+    
+    local function updateWalkSpeed()
+        if humanoid then
+            textLabel1.Text = tostring(humanoid.WalkSpeed)
+        end
+    end
+    
+    game:GetService("RunService").Heartbeat:Connect(updateWalkSpeed)
+    updateWalkSpeed() -- Initial update
+    
+    -- ZoomDIstance.LocalScript
+    local camera = game.Workspace.CurrentCamera
+    local textLabel2 = ZoomDIstance -- Assuming ZoomDIstance is a valid object
+    
+    local function updateZoomDistance()
+        local zoomDistance = (camera.CFrame.Position - camera.Focus.Position).Magnitude
+        textLabel2.Text = string.format("%.2f", zoomDistance) -- Display distance rounded to 2 decimal places
+    end
+    
+    game:GetService("RunService").Heartbeat:Connect(updateZoomDistance)
+    updateZoomDistance() -- Initial update
+    
+    -- FieldOfView.LocalScript
+    local textLabel3 = FeildOfView -- Assuming FeildOfView is a valid object
+    
+    local function updateFieldOfView()
+        if camera then
+            local fieldOfView = camera.FieldOfView
+            textLabel3.Text = tostring(fieldOfView)
+        end
+    end
+    
+    game:GetService("RunService").Heartbeat:Connect(updateFieldOfView)
+    updateFieldOfView() -- Initial update
+    
+    -- JumpPower.LocalScript
+    local textLabel4 = JumpPower -- Assuming JumpPower is a valid object
+    
+    local function updateJumpPower()
+        local humanoid = player.Character and player.Character:FindFirstChild("Humanoid")
+        if humanoid then
+            textLabel4.Text = tostring(humanoid.JumpPower)
+        end
+    end
+    
+    game:GetService("RunService").Heartbeat:Connect(updateJumpPower)
+    updateJumpPower() -- Initial update
+    
+    -- Frame2.LocalScript
+    local myPart = Frame2 -- Assuming Frame2 is a valid object
+    local fullPath = myPart:GetFullName()
+    print("Full path:", fullPath)
+    
+    -- velocity.LocalScript
+    local textLabel5 = velocity -- Assuming velocity is a valid object
+    
+    local function updateVelocity()
+        if humanoid then
+            local velocity = humanoid.RootPart.Velocity.magnitude
+            textLabel5.Text = string.format("%.2f", velocity)
+        end
+    end
+    
+    game:GetService("RunService").Heartbeat:Connect(updateVelocity)
+    updateVelocity() -- Initial update
+end)
+
+
+
+
+
+
+
+
+
+
+
+
+local frame = game:GetService("Players").LocalPlayer.PlayerGui:WaitForChild("ScorpMini"):WaitForChild("ScorpTest"):WaitForChild("Numbers"):WaitForChild("Frame1") -- Adjust the frame name accordingly
+
+local originalColor = Color3.fromRGB(255, 0, 0) -- Red
+local targetColor = Color3.fromRGB(0, 255, 0) -- Green
+
+local tweenInfo = TweenInfo.new(
+    0.2, -- Duration in seconds
+    Enum.EasingStyle.Linear, -- Easing style (linear for a smooth transition)
+    Enum.EasingDirection.Out -- Easing direction (out for a smooth start)
+)
+
+local function changeColor()
+    local currentColor = frame.BackgroundColor3
+    local newColor = (currentColor == originalColor) and targetColor or originalColor
+
+    local tween = game:GetService("TweenService"):Create(frame, tweenInfo, {
+        BackgroundColor3 = newColor
+    })
+
+    tween:Play()
+    tween.Completed:Connect(function()
+        print("Color transition complete.")
+    end)
+end
+
+local settings = var.settings
+
+local function onSettingsChange()
+    if settings.NoClip then
+        changeColor()
+    end
+end
+
+game:GetService("RunService").Stepped:Connect(onSettingsChange)
+local frame = game:GetService("Players").LocalPlayer.PlayerGui:WaitForChild("ScorpMini"):WaitForChild("ScorpTest"):WaitForChild("Numbers"):WaitForChild("Frame2") -- Adjust the frame name accordingly
+
+local originalColor = Color3.fromRGB(255, 0, 0) -- Red
+local targetColor = Color3.fromRGB(0, 255, 0) -- Green
+
+local tweenInfo = TweenInfo.new(
+    0.2, -- Duration in seconds
+    Enum.EasingStyle.Linear, -- Easing style (linear for a smooth transition)
+    Enum.EasingDirection.Out -- Easing direction (out for a smooth start)
+)
+
+local function changeColor()
+    local currentColor = frame.BackgroundColor3
+    local newColor = (currentColor == originalColor) and targetColor or originalColor
+
+    local tween = game:GetService("TweenService"):Create(frame, tweenInfo, {
+        BackgroundColor3 = newColor
+    })
+
+    tween:Play()
+    tween.Completed:Connect(function()
+        print("Color transition complete.")
+    end)
+end
+
+local settings = var.settings
+
+local function onSettingsChange()
+    if settings.HardDragger then
+        changeColor()
+    end
+end
+
+game:GetService("RunService").Stepped:Connect(onSettingsChange)
+local frame = game:GetService("Players").LocalPlayer.PlayerGui:WaitForChild("ScorpMini"):WaitForChild("ScorpTest"):WaitForChild("Numbers"):WaitForChild("Frame3") -- Adjust the frame name accordingly
+
+local originalColor = Color3.fromRGB(255, 0, 0) -- Red
+local targetColor = Color3.fromRGB(0, 255, 0) -- Green
+
+local tweenInfo = TweenInfo.new(
+    0.2, -- Duration in seconds
+    Enum.EasingStyle.Linear, -- Easing style (linear for a smooth transition)
+    Enum.EasingDirection.Out -- Easing direction (out for a smooth start)
+)
+
+local function changeColor()
+    local currentColor = frame.BackgroundColor3
+    local newColor = (currentColor == originalColor) and targetColor or originalColor
+
+    local tween = game:GetService("TweenService"):Create(frame, tweenInfo, {
+        BackgroundColor3 = newColor
+    })
+
+    tween:Play()
+    tween.Completed:Connect(function()
+        print("Color transition complete.")
+    end)
+end
+
+local settings = var.settings
+
+local function onSettingsChange()
+    if settings.GodMode then
+        changeColor()
+    end
+end
+
+game:GetService("RunService").Stepped:Connect(onSettingsChange)
+local frame = game:GetService("Players").LocalPlayer.PlayerGui:WaitForChild("ScorpMini"):WaitForChild("ScorpTest"):WaitForChild("Numbers"):WaitForChild("Frame4") -- Adjust the frame name accordingly
+
+local originalColor = Color3.fromRGB(255, 0, 0) -- Red
+local targetColor = Color3.fromRGB(0, 255, 0) -- Green
+
+local tweenInfo = TweenInfo.new(
+    0.2, -- Duration in seconds
+    Enum.EasingStyle.Linear, -- Easing style (linear for a smooth transition)
+    Enum.EasingDirection.Out -- Easing direction (out for a smooth start)
+)
+
+local function changeColor()
+    local currentColor = frame.BackgroundColor3
+    local newColor = (currentColor == originalColor) and targetColor or originalColor
+
+    local tween = game:GetService("TweenService"):Create(frame, tweenInfo, {
+        BackgroundColor3 = newColor
+    })
+
+    tween:Play()
+    tween.Completed:Connect(function()
+        print("Color transition complete.")
+    end)
+end
+
+local settings = var.settings
+
+local function onSettingsChange()
+    if settings.AntiVoid then
+        changeColor()
+    end
+end
+
+game:GetService("RunService").Stepped:Connect(onSettingsChange)
+local frame = game:GetService("Players").LocalPlayer.PlayerGui:WaitForChild("ScorpMini"):WaitForChild("ScorpTest"):WaitForChild("Numbers"):WaitForChild("Frame5") -- Adjust the frame name accordingly
+
+local originalColor = Color3.fromRGB(255, 0, 0) -- Red
+local targetColor = Color3.fromRGB(0, 255, 0) -- Green
+
+local tweenInfo = TweenInfo.new(
+    0.2, -- Duration in seconds
+    Enum.EasingStyle.Linear, -- Easing style (linear for a smooth transition)
+    Enum.EasingDirection.Out -- Easing direction (out for a smooth start)
+)
+
+local function changeColor()
+    local currentColor = frame.BackgroundColor3
+    local newColor = (currentColor == originalColor) and targetColor or originalColor
+
+    local tween = game:GetService("TweenService"):Create(frame, tweenInfo, {
+        BackgroundColor3 = newColor
+    })
+
+    tween:Play()
+    tween.Completed:Connect(function()
+        print("Color transition complete.")
+    end)
+end
+
+local settings = var.settings
+
+local function onSettingsChange()
+    if settings.Flashlight then
+        changeColor()
+    end
+end
+
+game:GetService("RunService").Stepped:Connect(onSettingsChange)
+local frame = game:GetService("Players").LocalPlayer.PlayerGui:WaitForChild("ScorpMini"):WaitForChild("ScorpTest"):WaitForChild("Numbers"):WaitForChild("Frame6") -- Adjust the frame name accordingly
+
+local originalColor = Color3.fromRGB(255, 0, 0) -- Red
+local targetColor = Color3.fromRGB(0, 255, 0) -- Green
+
+local tweenInfo = TweenInfo.new(
+    0.2, -- Duration in seconds
+    Enum.EasingStyle.Linear, -- Easing style (linear for a smooth transition)
+    Enum.EasingDirection.Out -- Easing direction (out for a smooth start)
+)
+
+local function changeColor()
+    local currentColor = frame.BackgroundColor3
+    local newColor = (currentColor == originalColor) and targetColor or originalColor
+
+    local tween = game:GetService("TweenService"):Create(frame, tweenInfo, {
+        BackgroundColor3 = newColor
+    })
+
+    tween:Play()
+    tween.Completed:Connect(function()
+        print("Color transition complete.")
+    end)
+end
+
+local settings = var.settings
+
+local function onSettingsChange()
+    if settings.AutoAxePickup then
+        changeColor()
+    end
+end
+
+game:GetService("RunService").Stepped:Connect(onSettingsChange)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--[[ Scripts:
 loadstring()
 local function GDBSSBO_fake_script() -- Walkspeed.LocalScript 
 	local script = Instance.new('LocalScript', Walkspeed)
@@ -427,7 +745,6 @@ local function GDBSSBO_fake_script() -- Walkspeed.LocalScript
 	
 	-- Initial update
 	updateWalkspeed()
-	--]]
 	
 	-- Inside a LocalScript
 	local player = game.Players.LocalPlayer
@@ -477,8 +794,7 @@ coroutine.wrap(ZTSWW_fake_script)()
 local function IDZX_fake_script() -- FeildOfView.LocalScript 
 	local script = Instance.new('LocalScript', FeildOfView)
 
-	
-	--[[
+
 	local player = game.Players.LocalPlayer
 	local textLabel = script.Parent -- Assuming the TextLabel is a child of the same parent as this script
 	
@@ -495,7 +811,6 @@ local function IDZX_fake_script() -- FeildOfView.LocalScript
 	-- Connect the function to property changes
 	game:GetService("RunService").RenderStepped:Connect(updateFOV)
 	updateFOV() -- Initial update
-	--]]
 	
 	-- Inside a LocalScript
 	local camera = game.Workspace.CurrentCamera
@@ -568,7 +883,7 @@ local function HHEFT_fake_script() -- velocity.LocalScript
 	updateVelocity() -- Initial update
 	
 end
---[[
+
 coroutine.wrap(HHEFT_fake_script)()
 local function BSGWW_fake_script() -- Minitest.LocalScript 
 	local script = Instance.new('LocalScript', Minitest)
