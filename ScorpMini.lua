@@ -504,253 +504,32 @@ end)
 
 
 
+local function smoothBackgroundColorChange(frame, targetColor, duration)
+    local tweenInfo = TweenInfo.new(
+        duration, -- Duration in seconds
+        Enum.EasingStyle.Linear, -- Easing style (linear for a smooth transition)
+        Enum.EasingDirection.Out -- Easing direction (out for a smooth start)
+    )
 
+    local tween = game:GetService("TweenService"):Create(frame, tweenInfo, {
+        BackgroundColor3 = targetColor
+    })
 
-local frame = game:GetService("Players").LocalPlayer.PlayerGui:WaitForChild("ScorpMini"):WaitForChild("ScorpTest")WaitForChild("Frame1") -- Adjust the frame name accordingly
-
--- Set the frame initially invisible and in the minimized state
-frame.Position = UDim2.new(0, 0, 1, 0)
-frame.Size = UDim2.new(0, 0, 0, 0)
-frame.Visible = false
-
--- Create a BindableEvent to listen for changes in the Noclip setting
-local noclipChanged = Instance.new("BindableEvent")
-
--- Function to toggle the frame's visibility and size
-local function toggleFrame()
-    if var.Noclip:Get() then
-        frame.Visible = true
-        frame:TweenSizeAndPosition(
-            UDim2.new(0, 235, 0, 371), -- Final size
-            UDim2.new(0, 0, 0.5, 0), -- Final position (adjust Y coordinate as needed)
-            Enum.EasingDirection.Out,
-            Enum.EasingStyle.Sine,
-            1, -- Duration
-            true
-        )
-    else
-        frame:TweenSizeAndPosition(
-            UDim2.new(0, 0, 0, 0), -- Final size
-            UDim2.new(0, 0, 1, 0), -- Final position
-            Enum.EasingDirection.Out,
-            Enum.EasingStyle.Sine,
-            1, -- Duration
-            true
-        )
-        frame.Visible = false
-    end
+    tween:Play()
 end
 
--- Automatically toggle the frame based on the initial Noclip setting
-toggleFrame()
-
--- Listen for changes in the Noclip setting
-var.Noclip.Changed:Connect(toggleFrame)
-local frame = game:GetService("Players").LocalPlayer.PlayerGui:WaitForChild("ScorpMini"):WaitForChild("ScorpTest"):WaitForChild("Frame2") -- Adjust the frame name accordingly
-
--- Set the frame initially invisible and in the minimized state
-frame.Position = UDim2.new(0, 0, 1, 0)
-frame.Size = UDim2.new(0, 0, 0, 0)
-frame.Visible = false
-
--- Create a BindableEvent to listen for changes in the HardDragger setting
-local hardDraggerChanged = Instance.new("BindableEvent")
-
--- Function to toggle the frame's visibility and size
-local function toggleFrame()
-    if var.HardDragger:Get() then
-        frame.Visible = true
-        frame:TweenSizeAndPosition(
-            UDim2.new(0, 235, 0, 371), -- Final size
-            UDim2.new(0, 0, 0.5, 0), -- Final position (adjust Y coordinate as needed)
-            Enum.EasingDirection.Out,
-            Enum.EasingStyle.Sine,
-            1, -- Duration
-            true
-        )
-    else
-        frame:TweenSizeAndPosition(
-            UDim2.new(0, 0, 0, 0), -- Final size
-            UDim2.new(0, 0, 1, 0), -- Final position
-            Enum.EasingDirection.Out,
-            Enum.EasingStyle.Sine,
-            1, -- Duration
-            true
-        )
-        frame.Visible = false
-    end
+local function changeFrameColor(frameName, settingName, duration)
+    local frame = game:GetService("Players").LocalPlayer.PlayerGui:WaitForChild("ScorpMini"):WaitForChild("ScorpTest"):WaitForChild(frameName)
+    local settingValue = var[settingName]:Get()
+    local targetColor = settingValue and Color3.new(0, 1, 0) or Color3.new(1, 0, 0)
+    smoothBackgroundColorChange(frame, targetColor, duration)
 end
 
--- Automatically toggle the frame based on the initial HardDragger setting
-toggleFrame()
-
--- Listen for changes in the HardDragger setting
-var.HardDragger.Changed:Connect(toggleFrame)
-local frame = game:GetService("Players").LocalPlayer.PlayerGui:WaitForChild("ScorpMini"):WaitForChild("ScorpTest"):WaitForChild("Frame3") -- Adjust the frame name accordingly
-
--- Set the frame initially invisible and in the minimized state
-frame.Position = UDim2.new(0, 0, 1, 0)
-frame.Size = UDim2.new(0, 0, 0, 0)
-frame.Visible = false
-
--- Create a BindableEvent to listen for changes in the GodMode setting
-local godModeChanged = Instance.new("BindableEvent")
-
--- Function to toggle the frame's visibility and size
-local function toggleFrame()
-    if var.GodMode:Get() then
-        frame.Visible = true
-        frame:TweenSizeAndPosition(
-            UDim2.new(0, 235, 0, 371), -- Final size
-            UDim2.new(0, 0, 0.5, 0), -- Final position (adjust Y coordinate as needed)
-            Enum.EasingDirection.Out,
-            Enum.EasingStyle.Sine,
-            1, -- Duration
-            true
-        )
-    else
-        frame:TweenSizeAndPosition(
-            UDim2.new(0, 0, 0, 0), -- Final size
-            UDim2.new(0, 0, 1, 0), -- Final position
-            Enum.EasingDirection.Out,
-            Enum.EasingStyle.Sine,
-            1, -- Duration
-            true
-        )
-        frame.Visible = false
-    end
+-- Example usage
+for _, settingName in ipairs(var.playerStatNames) do
+    local frameName = string.format("Frame%d", table.find(var.playerStatNames, settingName))
+    changeFrameColor(frameName, settingName, 1)  -- Change to green if setting is true, red if false
 end
-
--- Automatically toggle the frame based on the initial GodMode setting
-toggleFrame()
-
--- Listen for changes in the GodMode setting
-var.GodMode.Changed:Connect(toggleFrame)
-local frame = game:GetService("Players").LocalPlayer.PlayerGui:WaitForChild("ScorpMini"):WaitForChild("ScorpTest"):WaitForChild("Frame4") -- Adjust the frame name accordingly
-
--- Set the frame initially invisible and in the minimized state
-frame.Position = UDim2.new(0, 0, 1, 0)
-frame.Size = UDim2.new(0, 0, 0, 0)
-frame.Visible = false
-
--- Create a BindableEvent to listen for changes in the AntiVoid setting
-local antiVoidChanged = Instance.new("BindableEvent")
-
--- Function to toggle the frame's visibility and size
-local function toggleFrame()
-    if var.AntiVoid:Get() then
-        frame.Visible = true
-        frame:TweenSizeAndPosition(
-            UDim2.new(0, 235, 0, 371), -- Final size
-            UDim2.new(0, 0, 0.5, 0), -- Final position (adjust Y coordinate as needed)
-            Enum.EasingDirection.Out,
-            Enum.EasingStyle.Sine,
-            1, -- Duration
-            true
-        )
-    else
-        frame:TweenSizeAndPosition(
-            UDim2.new(0, 0, 0, 0), -- Final size
-            UDim2.new(0, 0, 1, 0), -- Final position
-            Enum.EasingDirection.Out,
-            Enum.EasingStyle.Sine,
-            1, -- Duration
-            true
-        )
-        frame.Visible = false
-    end
-end
-
--- Automatically toggle the frame based on the initial AntiVoid setting
-toggleFrame()
-
--- Listen for changes in the AntiVoid setting
-var.AntiVoid.Changed:Connect(toggleFrame)
-local frame = game:GetService("Players").LocalPlayer.PlayerGui:WaitForChild("ScorpMini"):WaitForChild("ScorpTest"):WaitForChild("Frame5") -- Adjust the frame name accordingly
-
--- Set the frame initially invisible and in the minimized state
-frame.Position = UDim2.new(0, 0, 1, 0)
-frame.Size = UDim2.new(0, 0, 0, 0)
-frame.Visible = false
-
--- Create a BindableEvent to listen for changes in the Flashlight setting
-local flashlightChanged = Instance.new("BindableEvent")
-
--- Function to toggle the frame's visibility and size
-local function toggleFrame()
-    if var.Flashlight:Get() then
-        frame.Visible = true
-        frame:TweenSizeAndPosition(
-            UDim2.new(0, 235, 0, 371), -- Final size
-            UDim2.new(0, 0, 0.5, 0), -- Final position (adjust Y coordinate as needed)
-            Enum.EasingDirection.Out,
-            Enum.EasingStyle.Sine,
-            1, -- Duration
-            true
-        )
-    else
-        frame:TweenSizeAndPosition(
-            UDim2.new(0, 0, 0, 0), -- Final size
-            UDim2.new(0, 0, 1, 0), -- Final position
-            Enum.EasingDirection.Out,
-            Enum.EasingStyle.Sine,
-            1, -- Duration
-            true
-        )
-        frame.Visible = false
-    end
-end
-
--- Automatically toggle the frame based on the initial Flashlight setting
-toggleFrame()
-
--- Listen for changes in the Flashlight setting
-var.Flashlight.Changed:Connect(toggleFrame)
-local frame = game:GetService("Players").LocalPlayer.PlayerGui:WaitForChild("ScorpMini"):WaitForChild("ScorpTest"):WaitForChild("Frame6") -- Adjust the frame name accordingly
-
--- Set the frame initially invisible and in the minimized state
-frame.Position = UDim2.new(0, 0, 1, 0)
-frame.Size = UDim2.new(0, 0, 0, 0)
-frame.Visible = false
-
--- Create a BindableEvent to listen for changes in the AutoAxePickup setting
-local autoAxePickupChanged = Instance.new("BindableEvent")
-
--- Function to toggle the frame's visibility and size
-local function toggleFrame()
-    if var.AutoAxePickup:Get() then
-        frame.Visible = true
-        frame:TweenSizeAndPosition(
-            UDim2.new(0, 235, 0, 371), -- Final size
-            UDim2.new(0, 0, 0.5, 0), -- Final position (adjust Y coordinate as needed)
-            Enum.EasingDirection.Out,
-            Enum.EasingStyle.Sine,
-            1, -- Duration
-            true
-        )
-    else
-        frame:TweenSizeAndPosition(
-            UDim2.new(0, 0, 0, 0), -- Final size
-            UDim2.new(0, 0, 1, 0), -- Final position
-            Enum.EasingDirection.Out,
-            Enum.EasingStyle.Sine,
-            1, -- Duration
-            true
-        )
-        frame.Visible = false
-    end
-end
-
--- Automatically toggle the frame based on the initial AutoAxePickup setting
-toggleFrame()
-
--- Listen for changes in the AutoAxePickup setting
-var.AutoAxePickup.Changed:Connect(toggleFrame)
-
-
-
-
-
 
 
 
