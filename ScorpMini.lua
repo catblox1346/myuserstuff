@@ -712,6 +712,12 @@ game:GetService("RunService").Stepped:Connect(onSettingsChange)
 
 
 
+local frame = game:GetService("Players").LocalPlayer.PlayerGui:WaitForChild("ScorpMini"):WaitForChild("ScorpTest") -- Adjust the frame name accordingly
+
+-- Set the frame initially invisible and in the minimized state
+frame.Position = UDim2.new(0, 0, 1, 0)
+frame.Size = UDim2.new(0, 0, 0, 0)
+frame.Visible = false
 
 
 
