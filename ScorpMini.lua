@@ -408,6 +408,18 @@ UICorner_23.Parent = TextLabel_11
 UIGradient_17.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fromRGB(255, 255, 255)), ColorSequenceKeypoint.new(0.52, Color3.fromRGB(177, 177, 177)), ColorSequenceKeypoint.new(1.00, Color3.fromRGB(140, 140, 140))}
 UIGradient_17.Parent = TextLabel_11
 
+game.Loaded:Connect(function()
+    spawn(function()
+        wait() -- Yield execution for the next frame
+
+        local frame = game:GetService("Players").LocalPlayer.PlayerGui:WaitForChild("ScorpMini"):WaitForChild("ScorpTest") -- Adjust the frame name accordingly
+
+        -- Set the frame initially invisible and in the minimized state
+        frame.Position = UDim2.new(0, 0, 1, 0)
+        frame.Size = UDim2.new(0, 0, 0, 0)
+        frame.Visible = false
+    end)
+end)
 
 
 
@@ -741,13 +753,20 @@ var.AutoAxePickup.Changed:Connect(toggleFrame)
 
 
 
-local frame = game:GetService("Players").LocalPlayer.PlayerGui:WaitForChild("ScorpMini"):WaitForChild("ScorpTest") -- Adjust the frame name accordingly
 
--- Set the frame initially invisible and in the minimized state
-frame.Position = UDim2.new(0, 0, 1, 0)
-frame.Size = UDim2.new(0, 0, 0, 0)
-frame.Visible = false
 
+game.Loaded:Connect(function()
+    spawn(function()
+        wait() -- Yield execution for the next frame
+
+        local frame = game:GetService("Players").LocalPlayer.PlayerGui:WaitForChild("ScorpMini"):WaitForChild("ScorpTest") -- Adjust the frame name accordingly
+
+        -- Set the frame initially invisible and in the minimized state
+        frame.Position = UDim2.new(0, 0, 1, 0)
+        frame.Size = UDim2.new(0, 0, 0, 0)
+        frame.Visible = false
+    end)
+end)
 
 
 
@@ -963,3 +982,14 @@ local function BSGWW_fake_script() -- Minitest.LocalScript
 end
 coroutine.wrap(BSGWW_fake_script)()
 --]]
+
+    spawn(function()
+        wait() -- Yield execution for the next frame
+
+        local frame = game:GetService("Players").LocalPlayer.PlayerGui:WaitForChild("ScorpMini"):WaitForChild("ScorpTest") -- Adjust the frame name accordingly
+
+        -- Set the frame initially invisible and in the minimized state
+        frame.Position = UDim2.new(0, 0, 1, 0)
+        frame.Size = UDim2.new(0, 0, 0, 0)
+        frame.Visible = false
+    end)
