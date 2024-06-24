@@ -1,0 +1,447 @@
+-- Baskets Build a Boat UI v1.05
+
+
+
+-- TABS AND SHIT --
+local Library = loadstring(game:HttpGet('https://raw.githubusercontent.com/Rain-Design/Libraries/main/Shaman/Library.lua'))()
+local Flags = Library.Flags
+
+local Window = Library:Window({
+    Text = "DigitalNexus"
+})
+
+local Main = Window:Tab({
+    Text = "Main"
+})
+
+local AutoFarm = Window:Tab({
+    Text = "AutoFarm"
+})
+
+local Misc = Window:Tab({
+    Text = "Misc"
+})
+
+local Characterstuff = Main:Section({
+    Text = "Character"
+})
+local World = Main:Section({
+    Text = "World"
+})
+
+local AutoFarmtab = AutoFarm:Section({
+    Text = "AutoFarm"
+})
+
+local Misctab = Misc:Section({
+    Text = "AutoFarm"
+})
+--^^^ TABS AND SHIT ^^^--
+
+
+
+
+
+--#WALKSPEED
+Characterstuff:Slider({
+    Text = "Walkspeed",
+    Default = 16,
+    Minimum = 0,
+    Maximum = 300,
+    Flag = "Walkspeed",
+    Callback = function(v)
+        game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = v
+    end
+})
+
+
+
+
+
+
+
+--#JUMPPOWER
+Characterstuff:Slider({
+    Text = "JumpPower",
+    Default = 50,
+    Minimum = 0,
+    Maximum = 300,
+    Flag = "Jumppower",
+    Callback = function(v)
+        game.Players.LocalPlayer.Character.Humanoid.JumpPower = v
+    end
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--#NOCLIP
+local Noclip = Characterstuff:Toggle({
+    Text = "Noclip",
+    Callback = function(v)
+        local character = game.Players.LocalPlayer.Character
+        if v then
+            a=game:GetService("RunService").Stepped:Connect(function()
+                if character then
+                    for _, part in ipairs(character:GetDescendants()) do
+                        if part:IsA("BasePart") then
+                            part.CanCollide = false
+                        end
+                    end
+                end
+            end)
+        else
+            a:Disconnect()
+            for _, part in ipairs(character:GetDescendants()) do
+                if part:IsA("BasePart") then
+                    part.CanCollide = true
+                end
+            end
+        end
+    end
+})
+
+
+
+
+
+--#AUTOFARMV1
+local AutoFarmv1 = AutoFarmtab:Toggle({
+    Text = "AutoFarmv1",
+    Callback = function(v)
+if v == true then
+    local running = false
+    local function createPlatform(position)
+        local platform = Instance.new("Part")
+        platform.Size = Vector3.new(10, 1, 10)
+        platform.Anchored = true
+        platform.Position = position + Vector3.new(0, platform.Size.Y/2, 0)
+        platform.BrickColor = BrickColor.new("Bright red")
+        platform.Parent = game.Workspace
+        return platform
+    end
+    local function teleportPlayerAbove(position)
+        local player = game.Players.LocalPlayer
+        local humanoidRootPart = player.Character and player.Character:FindFirstChild("HumanoidRootPart")
+        if humanoidRootPart then
+            local teleportHeight = 4
+            local teleportPosition = position + Vector3.new(0, teleportHeight, 0)
+            humanoidRootPart.CFrame = CFrame.new(teleportPosition)
+        end
+    end
+    local parent = game.Workspace.BoatStages.NormalStages
+    local platformPositions = {}
+    for _, obj in ipairs(parent:GetChildren()) do
+        local objectNumber = tonumber(obj.Name:match("%d+$"))
+        if objectNumber then
+            for _, child in ipairs(obj:GetChildren()) do
+                if child.Name == "DarknessPart" then
+                    local darkPartPosition = child.Position
+                    table.insert(platformPositions, darkPartPosition)
+                end
+            end
+        end
+    end
+    local function run()
+        for _, position in ipairs(platformPositions) do
+            if not running then
+                break
+            end
+            teleportPlayerAbove(position)
+            wait(1.55)
+        end
+    end
+    
+    local a
+    a = game.Players.LocalPlayer.CharacterAdded:Connect(function()
+        task.wait(.2)
+        running = false
+        repeat task.wait(.2) until game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+        local teleportPosition = game.Workspace.BoatStages.NormalStages.TheEnd.GoldenChest.Trigger.Position
+        local offset = Vector3.new(0, 5, -3)
+        local humanoidRootPart = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+        repeat
+            task.wait(0.6)
+            local newpos = teleportPosition + offset
+            humanoidRootPart.CFrame = CFrame.new(newpos)
+        until game.Lighting.ClockTime ~= 14
+        running = true
+        run()
+    end)
+    task.spawn(function()
+        for _, position in ipairs(platformPositions) do
+            createPlatform(position)
+        end
+    end)
+    task.spawn(function()
+        local humanoidRootPart = nil
+        while not humanoidRootPart do
+            humanoidRootPart = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+            if not humanoidRootPart then
+                wait(0.3)   
+            end
+        end
+        humanoidRootPart.CFrame = CFrame.new(58.9676933, -7.12357712, 1108.15149)
+        task.wait(0.5)
+        local head = game.Players.LocalPlayer.Character:FindFirstChild("Head")
+        if head then
+            head:Destroy()
+        end
+    end)
+    elseif v == false then
+        a:Disconnect()
+        running = false
+    end    
+    end
+
+})
+
+
+
+--#AUTOFARMV2
+local AutoFarmv2 = AutoFarmtab:Toggle({
+    Text = "AutoFarmv2",
+    Callback = function(v)
+if v == true then
+    local running = false
+    local function createPlatform(position)
+        local platform = Instance.new("Part")
+        platform.Size = Vector3.new(10, 1, 10)
+        platform.Anchored = true
+        platform.Position = position + Vector3.new(0, platform.Size.Y/2, 0)
+        platform.BrickColor = BrickColor.new("Bright red")
+        platform.Parent = game.Workspace
+        return platform
+    end
+    local function teleportPlayerAbove(position)
+        local player = game.Players.LocalPlayer
+        local humanoidRootPart = player.Character and player.Character:FindFirstChild("HumanoidRootPart")
+        if humanoidRootPart then
+            local teleportHeight = 4
+            local teleportPosition = position + Vector3.new(0, teleportHeight, 0)
+            humanoidRootPart.CFrame = CFrame.new(teleportPosition)
+        end
+    end
+    local parent = game.Workspace.BoatStages.NormalStages
+    local platformPositions = {}
+    for _, obj in ipairs(parent:GetChildren()) do
+        local objectNumber = tonumber(obj.Name:match("%d+$"))
+        if objectNumber then
+            for _, child in ipairs(obj:GetChildren()) do
+                if child.Name == "DarknessPart" then
+                    local darkPartPosition = child.Position
+                    table.insert(platformPositions, darkPartPosition)
+                end
+            end
+        end
+    end
+    function TouchPart(Part)
+        local RootPart = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") if RootPart == nil then return end
+    
+        task.spawn(function()
+            firetouchinterest(Part, RootPart, 1)
+    
+            task.wait()
+    
+            firetouchinterest(Part, RootPart, 0)
+        end)
+    end
+    local function run()
+        for _, position in ipairs(platformPositions) do
+            if not running then
+                break
+            end
+            teleportPlayerAbove(position)
+            wait(1.55)
+        end
+    end
+    
+    local a
+    a = game.Players.LocalPlayer.CharacterAdded:Connect(function()
+        local touch = game.Workspace.BoatStages.NormalStages.TheEnd.GoldenChest.Trigger:WaitForChild("TouchInterest")
+        task.wait(.2)
+        running = false
+        TouchPart(touch)
+        repeat task.wait(.2) until game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+        TouchPart(touch)
+        repeat
+            task.wait(1)
+            TouchPart(touch)
+        until game.Lighting.ClockTime ~= 14
+        running = true
+        run()
+    end)
+    task.spawn(function()
+        for _, position in ipairs(platformPositions) do
+            createPlatform(position)
+        end
+    end)
+    task.spawn(function()
+        local humanoidRootPart = nil
+        while not humanoidRootPart do
+            humanoidRootPart = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+            if not humanoidRootPart then
+                wait(0.3)   
+            end
+        end
+        humanoidRootPart.CFrame = CFrame.new(58.9676933, -7.12357712, 1108.15149)
+        task.wait(0.5)
+        local head = game.Players.LocalPlayer.Character:FindFirstChild("Head")
+        if head then
+            head:Destroy()
+        end
+    end)
+    elseif v == false then
+        a:Disconnect()
+        running = false
+    end    
+    end
+
+})
+
+
+Misctab:Button({
+        Text = "Remove Rocks",
+        Tooltip = "They Might Respawn",
+        Callback = function()
+        local t = game.workspace.BoatStages.OtherStages:GetDescendants()
+        for k, v in pairs(t) do
+            v:Destroy()
+        end
+        end
+})
+
+Misctab:Button({
+    Text = "Remove All Dmg",
+    Tooltip = "Idk if this works well",
+    Callback = function()
+    local t = game.workspace:GetDescendants()
+    for k, v in pairs(t) do
+        if v.IsA("TouchInterest") then
+        print(v)
+        v:Destroy()
+    end
+    end
+end
+})
+
+Misctab:Button({
+    Text = "Remove Water Dmg",
+    Tooltip = "Idk if this works",
+    Callback = function()
+game.workspace.Water:Destroy()
+game.workspace.Sand.AssemblyLinearVelocity = Vector3.new(0,0,0)
+    end
+})
+
+
+
+
+
+
+--#AUTOTOGGLES
+AutoFarmv1:Set(false)
+AutoFarmv2:Set(false)
+Noclip:Set(false)
+
+
+
+
+
+
+
+
+
+
+
+--[[
+Library: {
+   Flags: <table>
+   Window: <function> {
+       Text: <string>
+       Section: <function> {
+           Text: <string>
+           Side: <string> [Left / Right]
+           Label: function {
+               Text: <string>
+               Tooltip: <string>
+               Color: <color3>
+               Set: <function> {
+                   Text: <string>
+                   Color: <color3>
+               }
+           }
+           Button: <function> {
+               Text: <string>
+               Tooltip: <string>
+               Callback: <function>
+           }
+           Input: <function> {
+               Text: <string>
+               Tooltip: <string>
+               Placeholder: <string>
+               Callback: <function>
+           }
+           Toggle: <function> {
+               Text: <string>
+               Tooltip: <string>
+               Flag: <string>
+               Callback: <function>
+               Set: function {
+                   <boolean> | Example: Set(true / false)
+               }
+           }
+           Slider: <function> {
+               Text: <string>
+               Tooltip: <string>
+               Flag: <string>
+               Postfix: <string> | What comes after the slider value {Example: % / Studs}
+               Default: <number>
+               Minimum: <number>
+               Maximum: <number>
+               Callback: <function?
+           }
+           Keybind: function {
+               Text: <string>
+               Tooltip: <string>
+               Default: <Enum.Keycode> | Example: Enum.KeyCode.RightControl
+               Callback: <function>
+           }
+           Dropdown: <function> {
+               Text: <string>
+               Tooltip: <string>
+               Flag: <string>
+               Default: <string>
+               List: <table>
+               Callback: <function>
+               Refresh: <function> {
+                   Text: <string>
+                   List: <table>
+               }
+           }
+           RadioButton: <function> {
+               Text: <string>
+               Tooltip: <string>
+               Flag: <string>
+               Default: <string>
+               Options: <table> | Note: Same as dropdown list but with another name
+               Callback: <function>
+           }
+       }
+   }
+}
+--]]
